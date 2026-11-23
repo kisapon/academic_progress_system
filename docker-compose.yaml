@@ -1,0 +1,40 @@
+volumes:
+  ttit-vl:
+networks:
+  ttit-network:
+services:
+  docker-nginx:
+    image: nginx
+    ports:
+      - '8094:80'
+    volumes:
+      - ./:/var/www/html/
+      - ./nginx:/etc/nginx/conf.d
+    networks:
+      - ttit-network
+  docker-mariadb:
+    image: mariadb
+    volumes:
+      - ttit-vl:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=mariadb
+      - MYSQL_USER=user2112
+      - MYSQL_PASSWORD=123456
+    networks:
+      - ttit-network
+  docker-phpmyadmin:
+    image: phpmyadmin:5.2.1
+    ports:
+      - "8095:80"
+    environment:
+      - PMA_HOST=docker-mariadb
+    networks:
+      - ttit-network
+  docker-php-fpm:
+    build:
+      context: ./php-fpm
+    volumes:
+      - ./:/var/www/
+    networks:
+      - ttit-network

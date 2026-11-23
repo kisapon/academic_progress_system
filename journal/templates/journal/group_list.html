@@ -1,0 +1,15 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<div class="page-head"><h1>Учебные группы</h1><a class="button primary" href="{% url 'group_create' %}">Создать группу</a></div>
+<table>
+<thead><tr><th>Номер</th><th>Специализация</th><th>Учебный год</th><th>Руководитель</th><th>Обучающихся</th><th>Действия</th></tr></thead>
+<tbody>
+{% for g in groups %}
+<tr>
+    <td>{{ g.number }}</td><td>{{ g.specialization }}</td><td>{{ g.study_year }}</td><td>{{ g.curator|default:'—' }}</td><td>{{ g.students.count }}</td>
+    <td><a href="{% url 'group_edit' g.id %}">Изменить</a> · <a href="{% url 'group_delete' g.id %}">Удалить</a></td>
+</tr>
+{% empty %}<tr><td colspan="6">Группы не найдены.</td></tr>{% endfor %}
+</tbody>
+</table>
+{% endblock %}

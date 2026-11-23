@@ -1,0 +1,15 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Отчет по успеваемости и посещаемости за учебный предмет</h1>
+{% include 'journal/_report_form.html' %}
+{% if data %}
+<table class="wide">
+<thead><tr><th>Обучающийся</th>{% for lesson in data.lessons %}<th>{{ lesson.date }}<br>{{ lesson.topic|default:lesson.subject }}</th>{% endfor %}<th>Средний балл</th></tr></thead>
+<tbody>
+{% for row in data.rows %}
+<tr><td>{{ row.student }}</td>{% for cell in row.cells %}<td>{{ cell|default:'—' }}</td>{% endfor %}<td>{{ row.average|default:'—' }}</td></tr>
+{% empty %}<tr><td>Нет данных для отчета.</td></tr>{% endfor %}
+</tbody>
+</table>
+{% endif %}
+{% endblock %}

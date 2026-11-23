@@ -1,0 +1,16 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Детализация занятия</h1>
+<section class="card-form">
+<p><strong>Дата:</strong> {{ lesson.date }} {{ lesson.start_time }}–{{ lesson.end_time }}</p>
+<p><strong>Группа:</strong> {{ lesson.group }}</p>
+<p><strong>Предмет:</strong> {{ lesson.subject }}</p>
+<p><strong>Преподаватель:</strong> {{ lesson.teacher }}</p>
+<p><strong>Тема:</strong> {{ lesson.topic|default:'Не указана' }}</p>
+<p><strong>Домашнее задание:</strong> {{ lesson.homework|default:'Не указано' }}</p>
+{% if is_role_student %}
+<p><strong>Оценка:</strong> {% if grade %}{{ grade.value }}{% else %}—{% endif %}</p>
+<p><strong>Посещаемость:</strong> {% if attendance %}{{ attendance.get_status_display }}{% else %}—{% endif %}</p>
+{% endif %}
+</section>
+{% endblock %}

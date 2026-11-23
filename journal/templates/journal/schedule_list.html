@@ -1,0 +1,16 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<div class="page-head"><h1>Расписание занятий</h1>{% if is_role_admin %}<a class="button primary" href="{% url 'lesson_create' %}">Добавить занятие</a>{% endif %}</div>
+<form class="filters" method="get"><label>С даты <input type="date" name="date_from" value="{{ request.GET.date_from }}"></label><label>По дату <input type="date" name="date_to" value="{{ request.GET.date_to }}"></label><button>Показать</button></form>
+<table>
+<thead><tr><th>Дата</th><th>Время</th><th>Группа</th><th>Предмет</th><th>Преподаватель</th><th>Аудитория</th><th>Действия</th></tr></thead>
+<tbody>
+{% for lesson in lessons %}
+<tr>
+<td>{{ lesson.date }}</td><td>{{ lesson.start_time }}–{{ lesson.end_time }}</td><td>{{ lesson.group }}</td><td>{{ lesson.subject }}</td><td>{{ lesson.teacher }}</td><td>{{ lesson.classroom|default:'—' }}</td>
+<td><a href="{% url 'lesson_detail' lesson.id %}">Открыть</a>{% if not is_role_student %} · <a href="{% url 'lesson_edit' lesson.id %}">Журнал</a>{% endif %}{% if is_role_admin %} · <a href="{% url 'lesson_delete' lesson.id %}">Удалить</a>{% endif %}</td>
+</tr>
+{% empty %}<tr><td colspan="7">Занятия не найдены.</td></tr>{% endfor %}
+</tbody>
+</table>
+{% endblock %}

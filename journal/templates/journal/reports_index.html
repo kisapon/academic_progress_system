@@ -1,0 +1,12 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Отчеты</h1>
+<div class="grid cards">
+    {% if is_role_admin %}<a class="card" href="{% url 'report_activity' %}"><h3>Активность заполнения журнала</h3><p>Количество заполненных и незаполненных занятий.</p></a>{% endif %}
+    <a class="card" href="{% url 'report_student' %}"><h3>Успеваемость и посещаемость обучающегося</h3><p>Оценки, статусы посещаемости и средний балл.</p></a>
+    {% if not is_role_student %}<a class="card" href="{% url 'report_subject_group' %}"><h3>Отчет по предмету и группе</h3><p>Список обучающихся и все занятия за период.</p></a>{% endif %}
+    {% if not is_role_student %}<a class="card" href="{% url 'report_performance_statistics' %}"><h3>Статистика успеваемости</h3><p>Средний балл в начале и конце периода, динамика.</p></a>{% endif %}
+    {% if not is_role_student %}<a class="card" href="{% url 'report_attendance_statistics' %}"><h3>Статистика посещаемости</h3><p>Пропуски по уважительной и неуважительной причине.</p></a>{% endif %}
+    <a class="card" href="{% url 'report_final_statement' %}"><h3>Итоговая ведомость</h3><p>Перечень предметов и итоговых результатов.</p></a>
+</div>
+{% endblock %}

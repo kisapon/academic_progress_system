@@ -1,0 +1,6 @@
+<form method="get" class="filters report-filter">
+    {% for field in form %}
+        <label>{{ field.label }} {{ field }}</label>
+    {% endfor %}
+    <button class="primary" type="submit">Сформировать</button>
+</form>

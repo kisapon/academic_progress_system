@@ -1,0 +1,9 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Статистика успеваемости</h1>
+{% include 'journal/_report_form.html' %}
+<table>
+<thead><tr><th>Обучающийся</th><th>Предмет</th><th>Средний балл в начале периода</th><th>Средний балл в конце периода</th><th>Изменение</th></tr></thead>
+<tbody>{% for r in rows %}<tr class="{% if r.is_low %}low{% endif %}"><td>{{ r.student }}</td><td>{{ r.subject }}</td><td>{{ r.avg_start|default:'—' }}</td><td>{{ r.avg_end|default:'—' }}</td><td>{% if r.change != None %}{{ r.change }}%{% else %}—{% endif %}</td></tr>{% empty %}<tr><td colspan="5">Нет данных для отчета.</td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

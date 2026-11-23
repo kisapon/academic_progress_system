@@ -1,0 +1,10 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Итоговая ведомость обучающегося</h1>
+{% include 'journal/_report_form.html' %}
+{% if selected_student %}<h2>{{ selected_student }}</h2>{% endif %}
+<table>
+<thead><tr><th>Предмет</th><th>Период</th><th>Итоговая оценка</th></tr></thead>
+<tbody>{% for r in rows %}<tr><td>{{ r.subject }}</td><td>{{ r.period }}</td><td>{{ r.value }}</td></tr>{% empty %}<tr><td colspan="3">Нет итоговых оценок.</td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

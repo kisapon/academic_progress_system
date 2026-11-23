@@ -1,0 +1,12 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>{{ title }}</h1>
+<form method="post" class="form card-form">
+    {% csrf_token %}
+    {{ form.non_field_errors }}
+    {% for field in form %}
+        <label>{{ field.label }} {{ field }} {% if field.errors %}<span class="error">{{ field.errors|striptags }}</span>{% endif %}</label>
+    {% endfor %}
+    <div class="actions"><button class="primary" type="submit">Сохранить</button><a class="button" href="javascript:history.back()">Назад</a></div>
+</form>
+{% endblock %}

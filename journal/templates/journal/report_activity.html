@@ -1,0 +1,9 @@
+{% extends 'journal/base.html' %}
+{% block content %}
+<h1>Отчет по активности заполнения журнала</h1>
+{% include 'journal/_report_form.html' %}
+<table>
+<thead><tr><th>Преподаватель</th><th>Предмет</th><th>Всего занятий</th><th>Заполнено</th><th>Не заполнено</th><th>% заполнения</th></tr></thead>
+<tbody>{% for r in rows %}<tr><td>{{ r.teacher }}</td><td>{{ r.subject }}</td><td>{{ r.total }}</td><td>{{ r.filled }}</td><td>{{ r.empty }}</td><td>{{ r.percent }}%</td></tr>{% empty %}<tr><td colspan="6">Нет данных для отчета.</td></tr>{% endfor %}</tbody>
+</table>
+{% endblock %}

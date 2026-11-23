@@ -1,0 +1,17 @@
+{% extends 'journal/base.html' %}
+{% block title %}Личный кабинет{% endblock %}
+{% block content %}
+<h1>Личный кабинет</h1>
+<p class="muted">Доступные функции отображаются в соответствии с ролью пользователя.</p>
+<div class="grid cards">
+    <a class="card" href="{% url 'schedule_list' %}"><h3>Расписание</h3><p>Просмотр занятий, времени, преподавателей и аудиторий.</p></a>
+    <a class="card" href="{% url 'reports_index' %}"><h3>Отчеты</h3><p>Формирование отчетности по успеваемости и посещаемости.</p></a>
+    <a class="card" href="{% url 'final_grade_list' %}"><h3>Итоговые оценки</h3><p>Просмотр и ведение итоговых ведомостей.</p></a>
+    {% if is_role_admin %}
+    <a class="card" href="{% url 'user_list' %}"><h3>Пользователи</h3><p>Создание, редактирование и удаление пользователей.</p></a>
+    <a class="card" href="{% url 'group_list' %}"><h3>Учебные группы</h3><p>Управление группами и руководителями.</p></a>
+    <a class="card" href="{% url 'subject_list' %}"><h3>Учебные предметы</h3><p>Управление справочником предметов.</p></a>
+    <a class="card" href="{% url 'assignment_list' %}"><h3>Назначения</h3><p>Закрепление преподавателей за группами и предметами.</p></a>
+    {% endif %}
+</div>
+{% endblock %}
